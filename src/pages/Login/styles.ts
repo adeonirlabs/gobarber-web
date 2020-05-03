@@ -16,6 +16,7 @@ export const Wrapper = styled.div`
   place-content: center;
 
   max-width: 660px;
+  min-width: 400px;
   width: 100%;
 
   form {
