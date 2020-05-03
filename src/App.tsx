@@ -1,3 +1,11 @@
 import React, { FC } from 'react'
+import GlobalStyle from 'styles/global'
 
-export const App: FC = () => <h1>Hello, world!</h1>
+import { Login } from 'pages'
+
+export const App: FC = () => (
+  <>
+    <GlobalStyle />
+    <Login />
+  </>
+)
