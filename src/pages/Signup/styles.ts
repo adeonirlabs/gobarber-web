@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { shade } from 'polished'
 
-import loginBackground from 'assets/login-background.png'
+import signupBackground from 'assets/signup-background.png'
 
 export const Container = styled.section`
   align-items: stretch;
@@ -45,13 +45,13 @@ export const Wrapper = styled.div`
   > a {
     align-items: center;
     align-self: center;
-    color: #ff9000;
+    color: #f4ede8;
     display: flex;
     text-decoration: none;
     transition: color 0.2s;
 
     &:hover {
-      color: ${shade(0.2, '#ff9000')};
+      color: ${shade(0.2, '#f4ede8')};
     }
 
     svg {
@@ -62,6 +62,6 @@ export const Wrapper = styled.div`
 
 export const HeroImage = styled.div`
   flex: 1;
-  background: url(${loginBackground}) no-repeat center;
+  background: url(${signupBackground}) no-repeat center;
   background-size: cover;
 `
