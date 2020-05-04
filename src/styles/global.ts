@@ -12,7 +12,7 @@ export default createGlobalStyle`
     background: #312e38;
     color: #f4ede8;
     -moz-osx-font-smoothing: grayscale;
-    -webkit-front-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
   }
 
   body, input, button {
