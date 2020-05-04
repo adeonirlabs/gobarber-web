@@ -27,6 +27,7 @@ export const Signup: FC = () => {
         abortEarly: false,
       })
     } catch (err) {
+      // eslint-disable-next-line
       console.log(err)
       const errors = getValidationErrors(err)
 

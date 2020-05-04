@@ -1,7 +1,6 @@
-import styled from 'styled-components'
-import { shade } from 'polished'
-
 import loginBackground from 'assets/login-background.png'
+import { shade } from 'polished'
+import styled from 'styled-components'
 
 export const Container = styled.section`
   align-items: stretch;

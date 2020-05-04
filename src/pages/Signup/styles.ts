@@ -1,7 +1,6 @@
-import styled from 'styled-components'
-import { shade } from 'polished'
-
 import signupBackground from 'assets/signup-background.png'
+import { shade } from 'polished'
+import styled from 'styled-components'
 
 export const Container = styled.section`
   align-items: stretch;
