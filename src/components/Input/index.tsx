@@ -1,13 +1,13 @@
-import React, {
-  FC,
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-  InputHTMLAttributes,
-  ComponentType,
-} from 'react'
 import { useField } from '@unform/core'
+import React, {
+  ComponentType,
+  FC,
+  InputHTMLAttributes,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import { IconBaseProps } from 'react-icons'
 import { FiAlertCircle } from 'react-icons/fi'
 

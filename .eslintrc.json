@@ -28,7 +28,8 @@
     "react-hooks",
     "@typescript-eslint",
     "prettier",
-    "import"
+    "import",
+    "simple-import-sort"
   ],
   "rules": {
     "semi": "off",
@@ -40,6 +41,11 @@
     "react/jsx-props-no-spreading": "off",
     "react/jsx-one-expression-per-line": "off",
     "react/prop-types": "off",
+    "simple-import-sort/sort": "error",
+    "sort-imports": "off",
+    "import/order": "off",
+    "import/first": "error",
+    "import/no-duplicates": "error",
     "import/prefer-default-export": "off",
     "@typescript-eslint/explicit-function-return-type": [
       "error",

@@ -1,5 +1,5 @@
-import styled, { css } from 'styled-components'
 import { Tooltip } from 'components/Tooltip'
+import styled, { css } from 'styled-components'
 
 interface Props {
   isFocused: boolean

@@ -1,15 +1,13 @@
-import React, { FC, useCallback, useRef } from 'react'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
+import logo from 'assets/logo.svg'
+import { Button, Input } from 'components'
+import React, { FC, useCallback, useRef } from 'react'
+import { FiArrowLeft, FiLock, FiMail, FiUser } from 'react-icons/fi'
+import { getValidationErrors } from 'utils/getValidationErrors'
 import * as Yup from 'yup'
 
-import { FiArrowLeft, FiUser, FiMail, FiLock } from 'react-icons/fi'
-
-import { getValidationErrors } from 'utils/getValidationErrors'
-
-import logo from 'assets/logo.svg'
-import { Input, Button } from 'components'
-import { Container, Wrapper, HeroImage } from './styles'
+import { Container, HeroImage, Wrapper } from './styles'
 
 export const Signup: FC = () => {
   const formRef = useRef<FormHandles>(null)
