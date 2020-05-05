@@ -1,3 +1,4 @@
+import { animated } from 'react-spring'
 import styled, { css } from 'styled-components'
 
 interface Props {
@@ -28,7 +29,7 @@ const toastType = {
   `,
 }
 
-export const Container = styled.div<Props>`
+export const Container = styled(animated.div)<Props>`
   display: flex;
 
   border: 2px solid #28262e;
