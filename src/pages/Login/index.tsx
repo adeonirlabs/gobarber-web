@@ -2,10 +2,11 @@ import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import logo from 'assets/logo.svg'
 import { Button, Input } from 'components'
-import { useAuth } from 'hooks'
+import { useAuth } from 'hooks/auth'
+import { useToast } from 'hooks/toast'
 import React, { FC, useCallback, useRef } from 'react'
 import { FiLock, FiLogIn, FiMail } from 'react-icons/fi'
-import { getValidationErrors } from 'utils/getValidationErrors'
+import { validateErrors } from 'utils/validateErrors'
 import * as Yup from 'yup'
 
 import { Container, HeroImage, Wrapper } from './styles'
@@ -19,6 +20,7 @@ export const Login: FC = () => {
   const formRef = useRef<FormHandles>(null)
 
   const { login } = useAuth()
+  const { addToast } = useToast()
 
   const handleSubmit = useCallback(
     async (data: LoginCredentials) => {
@@ -31,23 +33,30 @@ export const Login: FC = () => {
             .email('Insira um e-mail válido'),
           password: Yup.string().required('Senha é obrigatória'),
         })
+
         await schema.validate(data, {
           abortEarly: false,
         })
 
-        login({
+        await login({
           email: data.email,
           password: data.password,
         })
       } catch (err) {
-        // eslint-disable-next-line
-        console.log(err)
-        const errors = getValidationErrors(err)
+        if (err instanceof Yup.ValidationError) {
+          const errors = validateErrors(err)
 
-        formRef.current?.setErrors(errors)
+          formRef.current?.setErrors(errors)
+        }
+
+        addToast({
+          type: 'error',
+          title: 'Erro na autenticação!',
+          description: 'Ocorreu erro ao fazer login, verifique as credenciais.',
+        })
       }
     },
-    [login],
+    [login, addToast],
   )
 
   return (

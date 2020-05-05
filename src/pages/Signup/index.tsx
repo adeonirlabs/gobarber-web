@@ -4,7 +4,7 @@ import logo from 'assets/logo.svg'
 import { Button, Input } from 'components'
 import React, { FC, useCallback, useRef } from 'react'
 import { FiArrowLeft, FiLock, FiMail, FiUser } from 'react-icons/fi'
-import { getValidationErrors } from 'utils/getValidationErrors'
+import { validateErrors } from 'utils/validateErrors'
 import * as Yup from 'yup'
 
 import { Container, HeroImage, Wrapper } from './styles'
@@ -23,15 +23,18 @@ export const Signup: FC = () => {
           .email('Insira um e-mail válido'),
         password: Yup.string().min(6, 'Mínimo de 6 dígitos'),
       })
+
       await schema.validate(data, {
         abortEarly: false,
       })
     } catch (err) {
-      // eslint-disable-next-line
-      console.log(err)
-      const errors = getValidationErrors(err)
+      if (err instanceof Yup.ValidationError) {
+        const errors = validateErrors(err)
 
-      formRef.current?.setErrors(errors)
+        formRef.current?.setErrors(errors)
+      }
+
+      // Toast
     }
   }, [])
 
