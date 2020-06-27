@@ -1,6 +1,17 @@
 import signupBackground from 'assets/signup-background.png'
 import { shade } from 'polished'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+
+const appearFromRight = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`
 
 export const Container = styled.section`
   align-items: stretch;
@@ -11,12 +22,19 @@ export const Container = styled.section`
 
 export const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
   place-content: center;
 
   max-width: 660px;
   min-width: 400px;
   width: 100%;
+`
+
+export const Animated = styled.div`
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+
+  animation: ${appearFromRight} 0.5s;
 
   form {
     margin: 80px 0;
@@ -45,13 +63,13 @@ export const Wrapper = styled.div`
   > a {
     align-items: center;
     align-self: center;
-    color: #f4ede8;
+    color: #ff9000;
     display: flex;
     text-decoration: none;
     transition: color 0.2s;
 
     &:hover {
-      color: ${shade(0.2, '#f4ede8')};
+      color: ${shade(0.2, '#ff9000')};
     }
 
     svg {

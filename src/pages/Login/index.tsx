@@ -6,10 +6,11 @@ import { useAuth } from 'hooks/auth'
 import { useToast } from 'hooks/toast'
 import React, { FC, useCallback, useRef } from 'react'
 import { FiLock, FiLogIn, FiMail } from 'react-icons/fi'
+import { Link, useHistory } from 'react-router-dom'
 import { validateErrors } from 'utils/validateErrors'
 import * as Yup from 'yup'
 
-import { Container, HeroImage, Wrapper } from './styles'
+import { Animated, Container, HeroImage, Wrapper } from './styles'
 
 interface LoginCredentials {
   email: string
@@ -18,6 +19,7 @@ interface LoginCredentials {
 
 export const Login: FC = () => {
   const formRef = useRef<FormHandles>(null)
+  const history = useHistory()
 
   const { login } = useAuth()
   const { addToast } = useToast()
@@ -42,11 +44,15 @@ export const Login: FC = () => {
           email: data.email,
           password: data.password,
         })
+
+        history.push('/dashboard')
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = validateErrors(err)
 
           formRef.current?.setErrors(errors)
+
+          return
         }
 
         addToast({
@@ -56,33 +62,40 @@ export const Login: FC = () => {
         })
       }
     },
-    [login, addToast],
+    [login, addToast, history],
   )
 
   return (
     <Container>
       <Wrapper>
-        <img src={logo} alt="GoBarber" />
+        <Animated>
+          <img src={logo} alt="GoBarber" />
 
-        <Form onSubmit={handleSubmit} ref={formRef}>
-          <h1>Faça seu login</h1>
-          <Input name="email" icon={FiMail} type="email" placeholder="E-mail" />
-          <Input
-            name="password"
-            icon={FiLock}
-            type="password"
-            placeholder="Senha"
-          />
+          <Form onSubmit={handleSubmit} ref={formRef}>
+            <h1>Faça seu login</h1>
+            <Input
+              name="email"
+              icon={FiMail}
+              type="email"
+              placeholder="E-mail"
+            />
+            <Input
+              name="password"
+              icon={FiLock}
+              type="password"
+              placeholder="Senha"
+            />
 
-          <Button type="submit">Entrar</Button>
+            <Button type="submit">Entrar</Button>
 
-          <a href="/forgot">Esqueci minha senha</a>
-        </Form>
+            <a href="/forgot">Esqueci minha senha</a>
+          </Form>
 
-        <a href="/signup">
-          <FiLogIn size={24} />
-          Criar conta
-        </a>
+          <Link to="/signup">
+            <FiLogIn size={24} />
+            Criar conta
+          </Link>
+        </Animated>
       </Wrapper>
       <HeroImage />
     </Container>
