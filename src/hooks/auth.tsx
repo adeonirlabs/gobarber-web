@@ -13,6 +13,7 @@ interface Credetials {
 }
 
 interface AuthData {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   user: object
   login(credentials: Credetials): Promise<void>
   logout(): void
@@ -20,6 +21,7 @@ interface AuthData {
 
 interface AuthState {
   token: string
+  // eslint-disable-next-line @typescript-eslint/ban-types
   user: object
 }
 
