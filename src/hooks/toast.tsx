@@ -1,14 +1,12 @@
 import { Toast } from 'components'
-import React, {
-  createContext,
-  FC,
-  useCallback,
-  useContext,
-  useState,
-} from 'react'
+import { createContext, useCallback, useContext, useState } from 'react'
 import { uuid } from 'uuidv4'
 
-interface ToastData {
+type Props = {
+  children: React.ReactNode
+}
+
+type ToastData = {
   addToast(message: Omit<ToastMessage, 'id'>): void
   removeToast(id: string): void
 }
@@ -22,7 +20,7 @@ export interface ToastMessage {
 
 const ToastContext = createContext<ToastData>({} as ToastData)
 
-export const ToastProvider: FC = ({ children }) => {
+export const ToastProvider = ({ children }: Props) => {
   const [messages, setMessages] = useState<ToastMessage[]>([])
 
   const addToast = useCallback(

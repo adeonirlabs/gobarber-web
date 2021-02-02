@@ -1,5 +1,4 @@
 import { useAuth } from 'hooks/auth'
-import React, { FC } from 'react'
 import { Redirect, Route as DOMRoute, RouteProps } from 'react-router-dom'
 
 interface Props extends RouteProps {
@@ -7,11 +6,11 @@ interface Props extends RouteProps {
   component: React.ComponentType
 }
 
-export const Route: FC<Props> = ({
+export const Route = ({
   isPrivate = false,
   component: Component,
   ...props
-}) => {
+}: Props) => {
   const { user } = useAuth()
 
   return (

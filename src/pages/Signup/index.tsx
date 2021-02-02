@@ -3,14 +3,14 @@ import { Form } from '@unform/web'
 import logo from 'assets/logo.svg'
 import { Button, Input } from 'components'
 import { useToast } from 'hooks/toast'
-import React, { FC, useCallback, useRef } from 'react'
+import { useCallback, useRef } from 'react'
 import { FiArrowLeft, FiLock, FiMail, FiUser } from 'react-icons/fi'
 import { Link, useHistory } from 'react-router-dom'
 import { api } from 'services'
 import { validateErrors } from 'utils/validateErrors'
 import * as Yup from 'yup'
 
-import { Animated, Container, HeroImage, Wrapper } from './styles'
+import * as S from './styles'
 
 interface SignupData {
   name: string
@@ -18,7 +18,7 @@ interface SignupData {
   password: string
 }
 
-export const Signup: FC = () => {
+export const SignUp = () => {
   const formRef = useRef<FormHandles>(null)
   const { addToast } = useToast()
   const history = useHistory()
@@ -69,10 +69,10 @@ export const Signup: FC = () => {
   )
 
   return (
-    <Container>
-      <HeroImage />
-      <Wrapper>
-        <Animated>
+    <S.Container>
+      <S.HeroImage />
+      <S.Wrapper>
+        <S.Animated>
           <img src={logo} alt="GoBarber" />
 
           <Form onSubmit={handleSubmit} ref={formRef}>
@@ -98,8 +98,8 @@ export const Signup: FC = () => {
             <FiArrowLeft size={24} />
             Voltar para login
           </Link>
-        </Animated>
-      </Wrapper>
-    </Container>
+        </S.Animated>
+      </S.Wrapper>
+    </S.Container>
   )
 }

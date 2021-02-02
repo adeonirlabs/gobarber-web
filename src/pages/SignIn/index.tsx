@@ -4,24 +4,24 @@ import logo from 'assets/logo.svg'
 import { Button, Input } from 'components'
 import { useAuth } from 'hooks/auth'
 import { useToast } from 'hooks/toast'
-import React, { FC, useCallback, useRef } from 'react'
+import { useCallback, useRef } from 'react'
 import { FiLock, FiLogIn, FiMail } from 'react-icons/fi'
 import { Link, useHistory } from 'react-router-dom'
 import { validateErrors } from 'utils/validateErrors'
 import * as Yup from 'yup'
 
-import { Animated, Container, HeroImage, Wrapper } from './styles'
+import * as S from './styles'
 
 interface LoginCredentials {
   email: string
   password: string
 }
 
-export const Login: FC = () => {
+export const SignIn = () => {
   const formRef = useRef<FormHandles>(null)
   const history = useHistory()
 
-  const { login } = useAuth()
+  const { signin } = useAuth()
   const { addToast } = useToast()
 
   const handleSubmit = useCallback(
@@ -40,7 +40,7 @@ export const Login: FC = () => {
           abortEarly: false,
         })
 
-        await login({
+        await signin({
           email: data.email,
           password: data.password,
         })
@@ -62,13 +62,13 @@ export const Login: FC = () => {
         })
       }
     },
-    [login, addToast, history],
+    [signin, addToast, history],
   )
 
   return (
-    <Container>
-      <Wrapper>
-        <Animated>
+    <S.Container>
+      <S.Wrapper>
+        <S.Animated>
           <img src={logo} alt="GoBarber" />
 
           <Form onSubmit={handleSubmit} ref={formRef}>
@@ -95,9 +95,9 @@ export const Login: FC = () => {
             <FiLogIn size={24} />
             Criar conta
           </Link>
-        </Animated>
-      </Wrapper>
-      <HeroImage />
-    </Container>
+        </S.Animated>
+      </S.Wrapper>
+      <S.HeroImage />
+    </S.Container>
   )
 }

@@ -1,11 +1,13 @@
-import React, { ButtonHTMLAttributes, FC } from 'react'
+import { ButtonHTMLAttributes } from 'react'
 
-import { Container } from './styles'
+import * as S from './styles'
 
-type Props = ButtonHTMLAttributes<HTMLButtonElement>
+type Props = {
+  children: React.ReactNode
+} & ButtonHTMLAttributes<HTMLButtonElement>
 
-export const Button: FC<Props> = ({ children, ...rest }) => (
-  <Container type="button" {...rest}>
+export const Button = ({ children, ...rest }: Props) => (
+  <S.Container type="button" {...rest}>
     {children}
-  </Container>
+  </S.Container>
 )

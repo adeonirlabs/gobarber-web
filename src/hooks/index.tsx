@@ -1,9 +1,11 @@
-import React, { FC } from 'react'
-
 import { AuthProvider } from './auth'
 import { ToastProvider } from './toast'
 
-export const AppProvider: FC = ({ children }) => (
+type Props = {
+  children: React.ReactNode
+}
+
+export const AppProvider = ({ children }: Props) => (
   <AuthProvider>
     <ToastProvider>{children}</ToastProvider>
   </AuthProvider>

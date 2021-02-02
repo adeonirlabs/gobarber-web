@@ -1,25 +1,23 @@
-import React, {
-  createContext,
-  FC,
-  useCallback,
-  useContext,
-  useState,
-} from 'react'
+import { createContext, useCallback, useContext, useState } from 'react'
 import { api } from 'services'
 
-interface Credetials {
+type Props = {
+  children: React.ReactNode
+}
+
+type Credetials = {
   email: string
   password: string
 }
 
-interface AuthData {
+type AuthData = {
   // eslint-disable-next-line @typescript-eslint/ban-types
   user: object
-  login(credentials: Credetials): Promise<void>
-  logout(): void
+  signin(credentials: Credetials): Promise<void>
+  signout(): void
 }
 
-interface AuthState {
+type AuthState = {
   token: string
   // eslint-disable-next-line @typescript-eslint/ban-types
   user: object
@@ -27,7 +25,7 @@ interface AuthState {
 
 const AuthContext = createContext<AuthData>({} as AuthData)
 
-export const AuthProvider: FC = ({ children }) => {
+export const AuthProvider = ({ children }: Props) => {
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@GoBarber: token')
     const user = localStorage.getItem('@GoBarber: user')
@@ -39,7 +37,7 @@ export const AuthProvider: FC = ({ children }) => {
     return {} as AuthState
   })
 
-  const login = useCallback(async ({ email, password }) => {
+  const signin = useCallback(async ({ email, password }) => {
     const response = await api.post('/sessions', {
       email,
       password,
@@ -53,7 +51,7 @@ export const AuthProvider: FC = ({ children }) => {
     setData({ token, user })
   }, [])
 
-  const logout = useCallback(() => {
+  const signout = useCallback(() => {
     localStorage.removeItem('@GoBarber: token')
     localStorage.removeItem('@GoBarber: user')
 
@@ -61,7 +59,7 @@ export const AuthProvider: FC = ({ children }) => {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user: data.user, login, logout }}>
+    <AuthContext.Provider value={{ user: data.user, signin, signout }}>
       {children}
     </AuthContext.Provider>
   )

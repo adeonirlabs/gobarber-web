@@ -1,15 +1,14 @@
 import { ToastMessage } from 'hooks/toast'
-import React, { FC } from 'react'
 import { useTransition } from 'react-spring'
 
-import { Container } from './styles'
+import * as S from './styles'
 import { ToastWrapper } from './ToastWrapper'
 
 interface Props {
   messages: ToastMessage[]
 }
 
-export const Toast: FC<Props> = ({ messages }) => {
+export const Toast = ({ messages }: Props) => {
   const animatedToast = useTransition(messages, (message) => message.id, {
     from: { right: '-110%', opacity: 0 },
     enter: { right: '0%', opacity: 1 },
@@ -17,10 +16,10 @@ export const Toast: FC<Props> = ({ messages }) => {
   })
 
   return (
-    <Container>
+    <S.Container>
       {animatedToast.map(({ item, key, props }) => (
         <ToastWrapper key={key} toast={item} style={props} />
       ))}
-    </Container>
+    </S.Container>
   )
 }

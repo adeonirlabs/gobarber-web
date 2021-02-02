@@ -1,15 +1,14 @@
-import React, { FC } from 'react'
-
-import { Container } from './styles'
+import * as S from './styles'
 
 interface Props {
   title: string
+  children: React.ReactNode
   className?: string
 }
 
-export const Tooltip: FC<Props> = ({ title, className, children }) => (
-  <Container className={className}>
+export const Tooltip = ({ title, className, children }: Props) => (
+  <S.Container className={className}>
     <span>{title}</span>
     {children}
-  </Container>
+  </S.Container>
 )
