@@ -4,51 +4,38 @@ import logo from 'assets/logo.svg'
 import { Button, Input } from 'components'
 import { useToast } from 'hooks/toast'
 import { useCallback, useRef } from 'react'
-import { FiArrowLeft, FiLock, FiMail, FiUser } from 'react-icons/fi'
-import { Link, useHistory } from 'react-router-dom'
-import { api } from 'services'
+import { FiArrowLeft, FiMail } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
 import { validateErrors } from 'utils/validateErrors'
 import * as Yup from 'yup'
 
 import * as S from './styles'
 
-interface SignUpData {
-  name: string
+interface ForgotPasswordData {
   email: string
-  password: string
 }
 
-export const SignUp = () => {
+export const ForgotPassword = () => {
   const formRef = useRef<FormHandles>(null)
+
   const { addToast } = useToast()
-  const history = useHistory()
 
   const handleSubmit = useCallback(
-    async (data: SignUpData) => {
+    async (data: ForgotPasswordData) => {
       try {
         formRef.current?.setErrors({})
 
         const schema = Yup.object().shape({
-          name: Yup.string().required('Nome é obrigatório'),
           email: Yup.string()
             .required('E-mail é obrigatório')
             .email('Insira um e-mail válido'),
-          password: Yup.string().min(6, 'Mínimo de 6 dígitos'),
         })
 
         await schema.validate(data, {
           abortEarly: false,
         })
 
-        await api.post('/users', data)
-
-        history.push('/')
-
-        addToast({
-          type: 'success',
-          title: 'Cadastro realizado!',
-          description: 'Você já pode fazer seu login no GoBarber.',
-        })
+        // Recover password
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = validateErrors(err)
@@ -60,46 +47,40 @@ export const SignUp = () => {
 
         addToast({
           type: 'error',
-          title: 'Erro no cadastro!',
-          description: 'Ocorreu erro ao fazer cadastro, tente novamente.',
+          title: 'Erro na recuperação de senha!',
+          description:
+            'Ocorreu erro ao recuperar a senha, verifique seu email.',
         })
       }
     },
-    [addToast, history],
+    [addToast],
   )
 
   return (
     <S.Container>
-      <S.HeroImage />
       <S.Wrapper>
         <S.Animated>
           <img src={logo} alt="GoBarber" />
 
           <Form onSubmit={handleSubmit} ref={formRef}>
-            <h1>Faça seu cadastro</h1>
-            <Input name="name" icon={FiUser} type="text" placeholder="Nome" />
+            <h1>Esqueci minha senha</h1>
             <Input
               name="email"
               icon={FiMail}
               type="email"
               placeholder="E-mail"
             />
-            <Input
-              name="password"
-              icon={FiLock}
-              type="password"
-              placeholder="Senha"
-            />
 
-            <Button type="submit">Cadastrar</Button>
+            <Button type="submit">Recuperar</Button>
           </Form>
 
           <Link to="/">
             <FiArrowLeft size={24} />
-            Voltar para login
+            Voltar ao login
           </Link>
         </S.Animated>
       </S.Wrapper>
+      <S.HeroImage />
     </S.Container>
   )
 }

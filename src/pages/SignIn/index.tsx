@@ -12,7 +12,7 @@ import * as Yup from 'yup'
 
 import * as S from './styles'
 
-interface LoginCredentials {
+interface SignInData {
   email: string
   password: string
 }
@@ -21,11 +21,11 @@ export const SignIn = () => {
   const formRef = useRef<FormHandles>(null)
   const history = useHistory()
 
-  const { signin } = useAuth()
+  const { signIn } = useAuth()
   const { addToast } = useToast()
 
   const handleSubmit = useCallback(
-    async (data: LoginCredentials) => {
+    async (data: SignInData) => {
       try {
         formRef.current?.setErrors({})
 
@@ -40,7 +40,7 @@ export const SignIn = () => {
           abortEarly: false,
         })
 
-        await signin({
+        await signIn({
           email: data.email,
           password: data.password,
         })
@@ -62,7 +62,7 @@ export const SignIn = () => {
         })
       }
     },
-    [signin, addToast, history],
+    [signIn, addToast, history],
   )
 
   return (
@@ -88,7 +88,7 @@ export const SignIn = () => {
 
             <Button type="submit">Entrar</Button>
 
-            <a href="/forgot">Esqueci minha senha</a>
+            <Link to="/forgot-password">Esqueci minha senha</Link>
           </Form>
 
           <Link to="/signup">

@@ -13,8 +13,8 @@ type Credetials = {
 type AuthData = {
   // eslint-disable-next-line @typescript-eslint/ban-types
   user: object
-  signin(credentials: Credetials): Promise<void>
-  signout(): void
+  signIn(credentials: Credetials): Promise<void>
+  signOut(): void
 }
 
 type AuthState = {
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }: Props) => {
     return {} as AuthState
   })
 
-  const signin = useCallback(async ({ email, password }) => {
+  const signIn = useCallback(async ({ email, password }) => {
     const response = await api.post('/sessions', {
       email,
       password,
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }: Props) => {
     setData({ token, user })
   }, [])
 
-  const signout = useCallback(() => {
+  const signOut = useCallback(() => {
     localStorage.removeItem('@GoBarber: token')
     localStorage.removeItem('@GoBarber: user')
 
@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }: Props) => {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user: data.user, signin, signout }}>
+    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   )
