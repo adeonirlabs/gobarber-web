@@ -1,5 +1,7 @@
 import { shade } from 'polished'
-import styled, { keyframes } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
+
+import { Props } from '.'
 
 const spinner = keyframes`
   0% {
@@ -11,7 +13,7 @@ const spinner = keyframes`
   }
 `
 
-export const Container = styled.button`
+export const Container = styled.button<Pick<Props, 'loading'>>`
   background: #ff9000;
   color: #312e38;
   border: 0;
@@ -29,11 +31,15 @@ export const Container = styled.button`
 
   transition: background-color 0.2s;
 
-  svg {
-    animation: ${spinner} 1s infinite linear;
-  }
-
   &:hover {
     background: ${shade(0.2, '#ff9000')};
   }
+
+  ${({ loading }) =>
+    loading &&
+    css`
+      svg {
+        animation: ${spinner} 1s infinite linear;
+      }
+    `}
 `
