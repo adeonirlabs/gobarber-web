@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 
 interface Props {
   type?: 'success' | 'error' | 'warning' | 'info'
-  description: boolean
+  description: number
 }
 
 const toastType = {

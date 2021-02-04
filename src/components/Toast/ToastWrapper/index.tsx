@@ -19,8 +19,7 @@ const icons = {
 
 interface Props {
   toast: ToastMessage
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  style: object
+  style: React.CSSProperties
 }
 
 export const ToastWrapper = ({ toast, style }: Props) => {
@@ -39,7 +38,7 @@ export const ToastWrapper = ({ toast, style }: Props) => {
   return (
     <S.Container
       type={toast.type}
-      description={!!toast.description}
+      description={+!!toast.description}
       style={style}
     >
       {icons[toast.type || 'info']}
