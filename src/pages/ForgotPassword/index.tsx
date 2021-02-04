@@ -3,9 +3,10 @@ import { Form } from '@unform/web'
 import logo from 'assets/logo.svg'
 import { Button, Input } from 'components'
 import { useToast } from 'hooks/toast'
-import { useCallback, useRef } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { FiArrowLeft, FiMail } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
+import { api } from 'services'
 import { validateErrors } from 'utils/validateErrors'
 import * as Yup from 'yup'
 
@@ -16,6 +17,7 @@ interface ForgotPasswordData {
 }
 
 export const ForgotPassword = () => {
+  const [loading, setLoading] = useState(false)
   const formRef = useRef<FormHandles>(null)
 
   const { addToast } = useToast()
@@ -23,6 +25,7 @@ export const ForgotPassword = () => {
   const handleSubmit = useCallback(
     async (data: ForgotPasswordData) => {
       try {
+        setLoading(true)
         formRef.current?.setErrors({})
 
         const schema = Yup.object().shape({
@@ -35,7 +38,15 @@ export const ForgotPassword = () => {
           abortEarly: false,
         })
 
-        // Recover password
+        await api.post('password/forgot', {
+          email: data.email,
+        })
+
+        addToast({
+          type: 'success',
+          title: 'E-mail de recuperação enviado!',
+          description: 'Enviamos um email com link para recuperar de senha.',
+        })
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = validateErrors(err)
@@ -51,6 +62,8 @@ export const ForgotPassword = () => {
           description:
             'Ocorreu erro ao recuperar a senha, verifique seu email.',
         })
+      } finally {
+        setLoading(false)
       }
     },
     [addToast],
@@ -71,7 +84,9 @@ export const ForgotPassword = () => {
               placeholder="E-mail"
             />
 
-            <Button type="submit">Recuperar</Button>
+            <Button type="submit" loading={loading}>
+              Recuperar
+            </Button>
           </Form>
 
           <Link to="/">
