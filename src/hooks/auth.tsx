@@ -5,22 +5,27 @@ type Props = {
   children: React.ReactNode
 }
 
+type User = {
+  id: string
+  avatar_url: string
+  name: string
+  email: string
+}
+
 type Credetials = {
   email: string
   password: string
 }
 
 type AuthData = {
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  user: object
+  user: User
   signIn(credentials: Credetials): Promise<void>
   signOut(): void
 }
 
 type AuthState = {
   token: string
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  user: object
+  user: User
 }
 
 const AuthContext = createContext<AuthData>({} as AuthData)
