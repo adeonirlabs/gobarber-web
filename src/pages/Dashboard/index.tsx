@@ -1,6 +1,6 @@
 import Logo from 'assets/logo.svg'
 import { useAuth } from 'hooks/auth'
-import { FiPower } from 'react-icons/fi'
+import { FiClock, FiPower } from 'react-icons/fi'
 
 import * as S from './styles'
 
@@ -27,6 +27,34 @@ export const Dashboard = () => {
           </button>
         </S.HeaderContent>
       </S.Header>
+
+      <S.Content>
+        <S.Schedule>
+          <h1>Horários agendados</h1>
+          <p>
+            <span>Hoje</span>
+            <span>Dia 06</span>
+            <span>Segunda-feira</span>
+          </p>
+
+          <S.NextAppoitment>
+            <h3>Atendimento a seguir</h3>
+            <div>
+              <img
+                src="https://avatars.githubusercontent.com/u/3428733?s=460&u=bae1120b3b70eb367daed0a8cde1889482f0c7ab&v=4"
+                alt="Adeonir"
+              />
+
+              <strong>Adeonir Kohl</strong>
+              <span>
+                <FiClock size={24} />
+                08:00
+              </span>
+            </div>
+          </S.NextAppoitment>
+        </S.Schedule>
+        <S.Calendar />
+      </S.Content>
     </S.Container>
   )
 }

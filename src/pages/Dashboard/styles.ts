@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Container = styled.main``
+export const Container = styled.article``
 
 export const Header = styled.header`
   padding: 32px 0;
@@ -56,4 +56,104 @@ export const Profile = styled.div`
       color: #ff9000;
     }
   }
+`
+
+export const Content = styled.section`
+  max-width: 1120px;
+  margin: 64px auto;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  grid-template-areas: 'schedule calendar';
+  gap: 120px;
+`
+
+export const Schedule = styled.main`
+  grid-area: 'schedule';
+
+  h1 {
+    font-size: 36px;
+  }
+
+  p {
+    color: #ff900f;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+
+    span {
+      display: flex;
+      align-items: center;
+
+      + span::before {
+        content: '';
+        width: 1px;
+        height: 14px;
+        background: #ff9900;
+        margin-left: 8px;
+        margin-right: 8px;
+      }
+    }
+  }
+`
+
+export const NextAppoitment = styled.div`
+  margin-top: 64px;
+
+  h3 {
+    color: #999591;
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+
+  div {
+    background: #3e3b47;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 16px 24px;
+    position: relative;
+
+    ::before {
+      content: '';
+      width: 3px;
+      height: 70%;
+      border-radius: 0 3px 3px 0;
+      background: #ff9900;
+      position: absolute;
+      left: 0;
+      top: 15%;
+    }
+
+    img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-right: 24px;
+    }
+
+    strong {
+      font-size: 24px;
+    }
+
+    span {
+      margin-left: auto;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      color: #999591;
+
+      svg {
+        color: #ff9900;
+        margin-right: 10px;
+      }
+    }
+  }
+`
+
+export const Calendar = styled.aside`
+  grid-area: 'calendar';
+  background: #28262e;
+  border-radius: 10px;
+  height: 362px;
 `
