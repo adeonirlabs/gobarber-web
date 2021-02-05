@@ -44,14 +44,82 @@ export const Dashboard = () => {
                 src="https://avatars.githubusercontent.com/u/3428733?s=460&u=bae1120b3b70eb367daed0a8cde1889482f0c7ab&v=4"
                 alt="Adeonir"
               />
-
               <strong>Adeonir Kohl</strong>
+
               <span>
                 <FiClock size={24} />
                 08:00
               </span>
             </div>
           </S.NextAppoitment>
+
+          <S.ComingSection>
+            <h3>Manhã</h3>
+
+            <S.Appointment>
+              <span>
+                <FiClock size={20} />
+                08:00
+              </span>
+
+              <div>
+                <img
+                  src="https://avatars.githubusercontent.com/u/3428733?s=460&u=bae1120b3b70eb367daed0a8cde1889482f0c7ab&v=4"
+                  alt="Adeonir"
+                />
+                <strong>Adeonir Kohl</strong>
+              </div>
+            </S.Appointment>
+
+            <S.Appointment>
+              <span>
+                <FiClock size={20} />
+                09:00
+              </span>
+
+              <div>
+                <img
+                  src="https://avatars.githubusercontent.com/u/3428733?s=460&u=bae1120b3b70eb367daed0a8cde1889482f0c7ab&v=4"
+                  alt="Adeonir"
+                />
+                <strong>Adeonir Kohl</strong>
+              </div>
+            </S.Appointment>
+          </S.ComingSection>
+
+          <S.ComingSection>
+            <h3>Tarde</h3>
+
+            <S.Appointment>
+              <span>
+                <FiClock size={20} />
+                14:00
+              </span>
+
+              <div>
+                <img
+                  src="https://avatars.githubusercontent.com/u/3428733?s=460&u=bae1120b3b70eb367daed0a8cde1889482f0c7ab&v=4"
+                  alt="Adeonir"
+                />
+                <strong>Adeonir Kohl</strong>
+              </div>
+            </S.Appointment>
+
+            <S.Appointment>
+              <span>
+                <FiClock size={20} />
+                16:00
+              </span>
+
+              <div>
+                <img
+                  src="https://avatars.githubusercontent.com/u/3428733?s=460&u=bae1120b3b70eb367daed0a8cde1889482f0c7ab&v=4"
+                  alt="Adeonir"
+                />
+                <strong>Adeonir Kohl</strong>
+              </div>
+            </S.Appointment>
+          </S.ComingSection>
         </S.Schedule>
         <S.Calendar />
       </S.Content>
