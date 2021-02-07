@@ -281,6 +281,7 @@ export const Calendar = styled.aside`
       width: 40px;
       height: 40px;
       transition: all 0.2s ease;
+      border-radius: 10px;
 
       &--today {
         font-weight: normal;
@@ -297,9 +298,8 @@ export const Calendar = styled.aside`
         background: transparent !important;
       }
 
-      &--selected {
+      &--selected:not(.DayPicker-Day--disabled) {
         background: #ff9000 !important;
-        border-radius: 10px;
         color: #232129 !important;
       }
     }
