@@ -88,7 +88,7 @@ export const Schedule = styled.main`
       display: flex;
       align-items: center;
 
-      + span::before {
+      :not(:last-child)::after {
         content: '';
         width: 1px;
         height: 14px;
@@ -163,6 +163,10 @@ export const ComingSection = styled.div`
     border-bottom: 1px solid #3e3b47;
     padding-bottom: 16px;
     margin-bottom: 24px;
+  }
+
+  p {
+    color: #fff;
   }
 `
 
