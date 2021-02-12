@@ -1,20 +1,26 @@
 import ArrowLeftIcon from 'assets/icon-arrow-left.svg'
 import ArrowRightIcon from 'assets/icon-arrow-right.svg'
 import { shade } from 'polished'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+
+type AppointmentProps = {
+  isPast?: boolean
+}
 
 export const Container = styled.article``
 
-export const Header = styled.header`
-  padding: 32px 0;
+export const HeaderWrapper = styled.header`
+  height: 144px;
   background: #28262e;
+  padding: 0 10px;
 `
 
-export const HeaderContent = styled.div`
+export const Header = styled.div`
   max-width: 1120px;
   margin: 0 auto;
   display: flex;
   align-items: center;
+  height: 100%;
 
   > img {
     width: 160px;
@@ -55,10 +61,20 @@ export const Profile = styled.div`
       font-size: 14px;
     }
 
-    strong {
+    a {
+      text-decoration: none;
       color: #ff9000;
+      transition: opacity 0.2s ease;
+
+      :hover {
+        opacity: 0.8;
+      }
     }
   }
+`
+
+export const ContentWrapper = styled.div`
+  padding: 0 10px;
 `
 
 export const Content = styled.section`
@@ -170,46 +186,49 @@ export const ComingSection = styled.div`
   }
 `
 
-export const Appointment = styled.div`
-  display: flex;
-
-  span {
-    font-size: 16px;
+export const Appointment = styled.div<AppointmentProps>`
+  ${(props) => css`
     display: flex;
-    align-items: center;
-    color: #f4ede8;
-    width: 70px;
 
-    svg {
-      color: #ff9900;
-      margin-right: 10px;
-    }
-  }
+    span {
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      color: ${props.isPast ? '#999591' : '#f4ede8'};
+      width: 70px;
 
-  div {
-    flex: 1;
-    background: #3e3b47;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    padding: 16px;
-    margin-left: 24px;
-
-    img {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      margin-right: 16px;
+      svg {
+        color: #ff9900;
+        margin-right: 10px;
+      }
     }
 
-    strong {
-      font-size: 20px;
-    }
-  }
+    div {
+      flex: 1;
+      background: ${props.isPast ? '#28262e' : '#3e3b47'};
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      margin-left: 24px;
 
-  + div {
-    margin-top: 16px;
-  }
+      img {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        margin-right: 16px;
+      }
+
+      strong {
+        font-size: 20px;
+        color: ${props.isPast && shade(0.2, '#999591')};
+      }
+    }
+
+    + div {
+      margin-top: 16px;
+    }
+  `}
 `
 
 export const Calendar = styled.aside`

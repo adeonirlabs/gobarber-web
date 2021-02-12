@@ -12,10 +12,10 @@ import { FiAlertCircle } from 'react-icons/fi'
 
 import * as S from './styles'
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+type Props = {
   name: string
   icon?: ComponentType<IconBaseProps>
-}
+} & InputHTMLAttributes<HTMLInputElement>
 
 export const Input = ({ name, icon: Icon, ...rest }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null)

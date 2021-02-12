@@ -1,12 +1,13 @@
 import 'react-day-picker/lib/style.css'
 
 import Logo from 'assets/logo.svg'
-import { format, isAfter, isToday, parseISO } from 'date-fns'
+import { format, isAfter, isBefore, isToday, parseISO } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 import { useAuth } from 'hooks/auth'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import DayPicker, { DayModifiers } from 'react-day-picker'
 import { FiClock, FiPower } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
 import { api } from 'services'
 
 import * as S from './styles'
@@ -83,21 +84,23 @@ export const Dashboard = () => {
             hour: format(parseISO(appointment.date), 'HH:mm'),
           }
         })
-        setAppointments(appointmentsWithHour)
+        setAppointments(
+          appointmentsWithHour.sort((a, b) => {
+            return new Date(a.date).getTime() - new Date(b.date).getTime()
+          }),
+        )
       })
   }, [selectedDay])
 
   const disabledDays = useMemo(() => {
-    const days = monthAvailability
-      .filter((day) => day.available === false)
+    return monthAvailability
+      .filter((day) => !day.available)
       .map((day) => {
         const year = currentMonth.getFullYear()
         const month = currentMonth.getMonth()
 
         return new Date(year, month, day.day)
       })
-
-    return days
   }, [currentMonth, monthAvailability])
 
   const selectedDayAsText = useMemo(() => {
@@ -132,8 +135,8 @@ export const Dashboard = () => {
 
   return (
     <S.Container>
-      <S.Header>
-        <S.HeaderContent>
+      <S.HeaderWrapper>
+        <S.Header>
           <img src={Logo} alt="GoBarber" />
 
           <S.Profile>
@@ -141,121 +144,131 @@ export const Dashboard = () => {
 
             <div>
               <span>Bem vindo,</span>
-              <strong>{user.name}</strong>
+              <Link to="/profile">
+                <strong>{user.name}</strong>
+              </Link>
             </div>
           </S.Profile>
 
           <button type="button" onClick={signOut}>
             <FiPower />
           </button>
-        </S.HeaderContent>
-      </S.Header>
+        </S.Header>
+      </S.HeaderWrapper>
 
-      <S.Content>
-        <S.Schedule>
-          <h1>Horários agendados</h1>
-          <p>
-            {isToday(selectedDay) && <span>Hoje</span>}
-            <span>{selectedDayAsText}</span>
-            <span>{selectedWeekday}</span>
-          </p>
+      <S.ContentWrapper>
+        <S.Content>
+          <S.Schedule>
+            <h1>Horários agendados</h1>
+            <p>
+              {isToday(selectedDay) && <span>Hoje</span>}
+              <span>{selectedDayAsText}</span>
+              <span>{selectedWeekday}</span>
+            </p>
 
-          {isToday(selectedDay) && nextAppointment && (
-            <S.NextAppoitment>
-              <h3>Próximo agendamento</h3>
-              <div>
-                <img
-                  src={nextAppointment?.user.avatar_url}
-                  alt={nextAppointment?.user.name}
-                />
-                <strong>{nextAppointment?.user.name}</strong>
-
-                <span>
-                  <FiClock size={24} />
-                  {nextAppointment.hour}
-                </span>
-              </div>
-            </S.NextAppoitment>
-          )}
-
-          <S.ComingSection>
-            <h3>Manhã</h3>
-
-            {morningAppointments.length === 0 && (
-              <p>Nenhum agendamento neste período.</p>
-            )}
-
-            {morningAppointments.map((appointment) => (
-              <S.Appointment key={appointment.id}>
-                <span>
-                  <FiClock size={20} />
-                  {appointment.hour}
-                </span>
-
+            {isToday(selectedDay) && nextAppointment && (
+              <S.NextAppoitment>
+                <h3>Próximo agendamento</h3>
                 <div>
                   <img
-                    src={appointment.user.avatar_url}
-                    alt={appointment.user.name}
+                    src={nextAppointment?.user.avatar_url}
+                    alt={nextAppointment?.user.name}
                   />
-                  <strong>{appointment.user.name}</strong>
+                  <strong>{nextAppointment?.user.name}</strong>
+
+                  <span>
+                    <FiClock size={24} />
+                    {nextAppointment.hour}
+                  </span>
                 </div>
-              </S.Appointment>
-            ))}
-          </S.ComingSection>
-
-          <S.ComingSection>
-            <h3>Tarde</h3>
-
-            {morningAppointments.length === 0 && (
-              <p>Nenhum agendamento neste período.</p>
+              </S.NextAppoitment>
             )}
 
-            {afternoonAppointments.map((appointment) => (
-              <S.Appointment key={appointment.id}>
-                <span>
-                  <FiClock size={20} />
-                  {appointment.hour}
-                </span>
+            <S.ComingSection>
+              <h3>Manhã</h3>
 
-                <div>
-                  <img
-                    src={appointment.user.avatar_url}
-                    alt={appointment.user.name}
-                  />
-                  <strong>{appointment.user.name}</strong>
-                </div>
-              </S.Appointment>
-            ))}
-          </S.ComingSection>
-        </S.Schedule>
+              {morningAppointments.length === 0 && (
+                <p>Nenhum agendamento neste período.</p>
+              )}
 
-        <S.Calendar>
-          <DayPicker
-            locale="pt-BR"
-            fromMonth={new Date()}
-            disabledDays={[{ daysOfWeek: [0, 6] }, ...disabledDays]}
-            modifiers={{ available: { daysOfWeek: [1, 2, 3, 4, 5] } }}
-            onDayClick={handleChangeDay}
-            selectedDays={selectedDay}
-            onMonthChange={handleChangeMonth}
-            weekdaysShort={['D', 'S', 'T', 'Q', 'Q', 'S', 'S']}
-            months={[
-              'Janeiro',
-              'Fevereiro',
-              'Março',
-              'Abril',
-              'Maio',
-              'Junho',
-              'Julho',
-              'Agosto',
-              'Setembro',
-              'Outubro',
-              'Novembro',
-              'Dezembro',
-            ]}
-          />
-        </S.Calendar>
-      </S.Content>
+              {morningAppointments.map((appointment) => (
+                <S.Appointment
+                  key={appointment.id}
+                  isPast={isBefore(parseISO(appointment.date), new Date())}
+                >
+                  <span>
+                    <FiClock size={20} />
+                    {appointment.hour}
+                  </span>
+
+                  <div>
+                    <img
+                      src={appointment.user.avatar_url}
+                      alt={appointment.user.name}
+                    />
+                    <strong>{appointment.user.name}</strong>
+                  </div>
+                </S.Appointment>
+              ))}
+            </S.ComingSection>
+
+            <S.ComingSection>
+              <h3>Tarde</h3>
+
+              {morningAppointments.length === 0 && (
+                <p>Nenhum agendamento neste período.</p>
+              )}
+
+              {afternoonAppointments.map((appointment) => (
+                <S.Appointment
+                  key={appointment.id}
+                  isPast={isBefore(parseISO(appointment.date), new Date())}
+                >
+                  <span>
+                    <FiClock size={20} />
+                    {appointment.hour}
+                  </span>
+
+                  <div>
+                    <img
+                      src={appointment.user.avatar_url}
+                      alt={appointment.user.name}
+                    />
+                    <strong>{appointment.user.name}</strong>
+                  </div>
+                </S.Appointment>
+              ))}
+            </S.ComingSection>
+          </S.Schedule>
+
+          <S.Calendar>
+            <DayPicker
+              locale="pt-BR"
+              fromMonth={new Date()}
+              disabledDays={[{ daysOfWeek: [0, 6] }, ...disabledDays]}
+              modifiers={{ available: { daysOfWeek: [1, 2, 3, 4, 5] } }}
+              onDayClick={handleChangeDay}
+              selectedDays={selectedDay}
+              onMonthChange={handleChangeMonth}
+              weekdaysShort={['D', 'S', 'T', 'Q', 'Q', 'S', 'S']}
+              months={[
+                'Janeiro',
+                'Fevereiro',
+                'Março',
+                'Abril',
+                'Maio',
+                'Junho',
+                'Julho',
+                'Agosto',
+                'Setembro',
+                'Outubro',
+                'Novembro',
+                'Dezembro',
+              ]}
+            />
+          </S.Calendar>
+        </S.Content>
+      </S.ContentWrapper>
     </S.Container>
   )
 }

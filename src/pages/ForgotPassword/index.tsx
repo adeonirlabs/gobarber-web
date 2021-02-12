@@ -12,7 +12,7 @@ import * as Yup from 'yup'
 
 import * as S from './styles'
 
-interface ForgotPasswordData {
+type ForgotPasswordData = {
   email: string
 }
 

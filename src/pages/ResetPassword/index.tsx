@@ -12,7 +12,7 @@ import * as Yup from 'yup'
 
 import * as S from './styles'
 
-interface ResetPasswordData {
+type ResetPasswordData = {
   password: string
   password_confirmation: string
 }

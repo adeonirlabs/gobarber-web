@@ -12,7 +12,7 @@ import * as Yup from 'yup'
 
 import * as S from './styles'
 
-interface SignInData {
+type SignInData = {
   email: string
   password: string
 }
