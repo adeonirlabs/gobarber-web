@@ -1,4 +1,11 @@
-import { Dashboard, ForgotPassword, ResetPassword, SignIn, SignUp } from 'pages'
+import {
+  Dashboard,
+  ForgotPassword,
+  Profile,
+  ResetPassword,
+  SignIn,
+  SignUp,
+} from 'pages'
 import { Switch } from 'react-router-dom'
 
 import { Route } from './Route'
@@ -11,5 +18,6 @@ export const Routes = () => (
     <Route path="/reset-password" component={ResetPassword} />
 
     <Route path="/dashboard" component={Dashboard} isPrivate />
+    <Route path="/profile" component={Profile} isPrivate />
   </Switch>
 )

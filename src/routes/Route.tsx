@@ -1,4 +1,5 @@
 import { useAuth } from 'hooks/auth'
+import React from 'react'
 import { Redirect, Route as DOMRoute, RouteProps } from 'react-router-dom'
 
 interface Props extends RouteProps {
