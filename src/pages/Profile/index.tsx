@@ -104,7 +104,7 @@ export const Profile = () => {
         })
       }
     },
-    [addToast, history],
+    [addToast, history, updateUser],
   )
 
   const handleChangeAvatar = useCallback(
