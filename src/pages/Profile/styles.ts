@@ -79,6 +79,7 @@ export const Content = styled.div`
     svg {
       margin-right: 18px;
     }
+  }
 `
 
 export const Avatar = styled.div`
@@ -93,7 +94,7 @@ export const Avatar = styled.div`
     height: 186px;
   }
 
-  button {
+  label {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -106,6 +107,11 @@ export const Avatar = styled.div`
     align-items: center;
     justify-content: center;
     transition: background-color 0.2s;
+    cursor: pointer;
+
+    input {
+      display: none;
+    }
 
     svg {
       color: #312e38;
