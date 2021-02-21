@@ -48,6 +48,8 @@ export const Profile = styled.div`
     width: 64px;
     height: 64px;
     border-radius: 50%;
+    background: #1e1d23;
+    display: block;
   }
 
   div {
