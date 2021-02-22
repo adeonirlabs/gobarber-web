@@ -39,13 +39,13 @@ export const Profile = () => {
             .email('Digite um e-mail válido'),
           old_password: Yup.string(),
           password: Yup.string().when('old_password', {
-            is: (val: any) => !!val.length,
+            is: (val: string) => !!val.length,
             then: Yup.string().required('Campo obrigatório'),
             otherwise: Yup.string(),
           }),
           password_confirmation: Yup.string()
             .when('old_password', {
-              is: (val: any) => !!val.length,
+              is: (val: string) => !!val.length,
               then: Yup.string().required('Campo obrigatório'),
               otherwise: Yup.string(),
             })
@@ -84,7 +84,7 @@ export const Profile = () => {
 
         addToast({
           type: 'success',
-          title: 'Perfil atualizado!',
+          title: 'Perfil atualizado com sucesso!',
           description:
             'As informações do seu perfil foram atualizadas com sucesso!',
         })
